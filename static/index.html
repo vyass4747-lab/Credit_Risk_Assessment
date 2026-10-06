@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Credit Risk Assessment - ML powered loan risk prediction">
+    <title>Credit Risk Assessment</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a href="/" class="brand">
+                <span class="brand-mark">✓</span>
+                <span>Credit Risk Assessment</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#assessment">Assessment</a>
+                <a href="#how-it-works">How it works</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-inner">
+                <div>
+                    <p class="eyebrow">SMARTER DECISIONS · LOWER RISK</p>
+                    <h1>Credit Risk<br><span>Assessment</span></h1>
+                    <p class="hero-text">
+                        Enter the applicant's details to estimate the likelihood of loan default
+                        using a machine learning model.
+                    </p>
+                    <a href="#assessment" class="hero-link">Start assessment <span>↓</span></a>
+                </div>
+
+                <div class="hero-visual" aria-hidden="true">
+                    <div class="document-card">
+                        <div class="doc-line short"></div>
+                        <div class="doc-line"></div>
+                        <div class="doc-line"></div>
+                        <div class="doc-line small"></div>
+                    </div>
+                    <div class="shield">✓</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="assessment-section container" id="assessment">
+            <div class="form-card">
+                <div class="card-heading">
+                    <div class="heading-icon">↗</div>
+                    <div>
+                        <h2>Loan Applicant Details</h2>
+                        <p>Provide the applicant information below.</p>
+                    </div>
+                </div>
+
+                <form id="riskForm">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="person_age">Age</label>
+                            <input id="person_age" name="person_age" type="number" min="18" max="100" placeholder="e.g. 30" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="person_income">Annual Income</label>
+                            <input id="person_income" name="person_income" type="number" min="0" step="0.01" placeholder="e.g. 50000" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="person_home_ownership">Home Ownership</label>
+                            <select id="person_home_ownership" name="person_home_ownership" required>
+                                <option value="">Select ownership</option>
+                                <option value="RENT">Rent</option>
+                                <option value="OWN">Own</option>
+                                <option value="MORTGAGE">Mortgage</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="person_emp_length">Employment Length <span>(years)</span></label>
+                            <input id="person_emp_length" name="person_emp_length" type="number" min="0" max="60" step="0.1" placeholder="e.g. 5" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="loan_intent">Loan Intent</label>
+                            <select id="loan_intent" name="loan_intent" required>
+                                <option value="">Select intent</option>
+                                <option value="PERSONAL">Personal</option>
+                                <option value="EDUCATION">Education</option>
+                                <option value="MEDICAL">Medical</option>
+                                <option value="VENTURE">Venture</option>
+                                <option value="HOMEIMPROVEMENT">Home Improvement</option>
+                                <option value="DEBTCONSOLIDATION">Debt Consolidation</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="loan_grade">Loan Grade</label>
+                            <select id="loan_grade" name="loan_grade" required>
+                                <option value="">Select grade</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="loan_amnt">Loan Amount</label>
+                            <input id="loan_amnt" name="loan_amnt" type="number" min="0" step="0.01" placeholder="e.g. 10000" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="loan_int_rate">Interest Rate <span>(%)</span></label>
+                            <input id="loan_int_rate" name="loan_int_rate" type="number" min="0" step="0.01" placeholder="e.g. 12.5" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="loan_percent_income">Loan / Income <span>(%)</span></label>
+                            <input id="loan_percent_income" name="loan_percent_income" type="number" min="0" step="0.01" placeholder="e.g. 10" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="cb_person_default_on_file">Previous Default</label>
+                            <select id="cb_person_default_on_file" name="cb_person_default_on_file" required>
+                                <option value="">Select</option>
+                                <option value="N">No</option>
+                                <option value="Y">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="field full">
+                            <label for="cb_person_cred_hist_length">Credit History Length <span>(years)</span></label>
+                            <input id="cb_person_cred_hist_length" name="cb_person_cred_hist_length" type="number" min="0" max="100" step="1" placeholder="e.g. 10" required>
+                        </div>
+                    </div>
+
+                    <div id="formError" class="form-error" role="alert"></div>
+
+                    <button id="submitBtn" type="submit" class="submit-btn">
+                        <span class="btn-text">Check Risk</span>
+                        <span class="spinner"></span>
+                    </button>
+                </form>
+            </div>
+
+            <aside class="result-card" id="resultCard">
+                <div class="card-heading">
+                    <div class="heading-icon result-icon">✓</div>
+                    <div>
+                        <h2>Assessment Result</h2>
+                        <p>Prediction from the trained ML model.</p>
+                    </div>
+                </div>
+
+                <div class="result-content empty" id="resultContent">
+                    <div class="result-placeholder">
+                        <div class="placeholder-icon">?</div>
+                        <h3>Ready to assess</h3>
+                        <p>Submit the applicant details to see the estimated default risk.</p>
+                    </div>
+                </div>
+
+                <div class="result-content prediction" id="predictionContent" hidden>
+                    <div class="risk-badge" id="riskBadge">
+                        <div class="risk-icon" id="riskIcon">✓</div>
+                        <div>
+                            <span class="risk-label">Assessment</span>
+                            <strong id="riskResult">Low Risk</strong>
+                        </div>
+                    </div>
+
+                    <div class="probability-box">
+                        <div class="metric-top">
+                            <div>
+                                <span>Default Probability</span>
+                                <strong id="probability">0%</strong>
+                            </div>
+                            <div class="threshold">
+                                <span>Threshold</span>
+                                <strong id="threshold">0.50</strong>
+                            </div>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="explanation" id="explanation">
+                        The model estimates a lower likelihood of default for the provided application.
+                    </div>
+
+                    <div class="key-info">
+                        <div class="key-info-title">Prediction details</div>
+                        <div class="info-row">
+                            <span>Default probability</span>
+                            <strong id="probabilitySmall">0%</strong>
+                        </div>
+                        <div class="info-row">
+                            <span>Prediction</span>
+                            <strong id="predictionSmall">Low Risk</strong>
+                        </div>
+                        <div class="info-row">
+                            <span>Threshold used</span>
+                            <strong id="thresholdSmall">0.50</strong>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="how-section" id="how-it-works">
+            <div class="container">
+                <div class="section-title">
+                    <p class="eyebrow">HOW IT WORKS</p>
+                    <h2>From application to risk prediction</h2>
+                </div>
+
+                <div class="steps">
+                    <div class="step">
+                        <span>01</span>
+                        <h3>Enter details</h3>
+                        <p>Provide the applicant's financial and credit information.</p>
+                    </div>
+                    <div class="step">
+                        <span>02</span>
+                        <h3>Model inference</h3>
+                        <p>The trained classification model calculates a default probability.</p>
+                    </div>
+                    <div class="step">
+                        <span>03</span>
+                        <h3>Risk decision</h3>
+                        <p>The probability is compared against the optimized decision threshold.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <span>Credit Risk Assessment</span>
+            <span>Machine Learning Project</span>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
